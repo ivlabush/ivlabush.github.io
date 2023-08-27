@@ -14259,8 +14259,7 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Dataset contains 10019 records about Youtube cats related videos. We use english and russian search queries to get data in order to cover as much audience as we can. Some Japan and Korean videos appears also, it's have been discovered by tags or title. For example english title with corean tags. But it was quite few of them, so no great influence prognosed.</p>
-<p>Dataset obtained via Youtube open API and includes following columns:</p>
+<p>The dataset contains 10019 records about YouTube cat-related videos. We use English and Russian search queries to get data in order to cover as much audience as we can. Some Japanese and Korean videos appear also, it's have been discovered by tags or titles. For example English titles with Korean tags. But it was quite a few of them, so no great influence prognosis.</p>
 <ol>
 <li>Id - technical identifier;</li>
 <li>Video ID - unique Youtube identifier of video;</li>
@@ -14281,9 +14280,9 @@ a.anchor-link {
 <li>Subscribers count of channel;</li>
 <li>Videos count of channel.</li>
 </ol>
-<p>We aim to prognose View count of particular video against other data. Clearly understood that technical identifiers like Video ID or Channel ID have no influence to View count, so we need to choose data correctly.
-Closer look to dataset shows that 'Add to Favourite' count and Channel comments count always 0, so we don't need them. Channel category fixed also. In would be nice to have Channel country in dataset, but values very dense and we might have low inflence 'cause of data lack.</p>
-<p>Let's do some data preparation: separate data that we need only, normalize numeric values in range [0, 1], transform date values to timestamp and remove empty values of Video tags.</p>
+<p>We aim to prognose the View count of a particular video against other data. Clearly understood that technical identifiers like Video ID or Channel ID have no influence on View count, so we need to choose data correctly.
+A closer look at the dataset shows that 'Add to Favourite' count and Channel comments count are always 0, so we don't need them. Channel category fixed also. It would be nice to have the Channel country in the dataset, but values are very dense and we might have low influence 'cause of the data lack.</p>
+<p>Let's do some data preparation: separate data that we need only, normalize numeric values in the range [0, 1], transform date values to timestamp and remove empty values of Video tags.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14443,8 +14442,8 @@ max       1.000000
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As result of Video tags trimming we loose about 7% of dataset - it's acceptable loss.</p>
-<p>Let's check if numeric data in dataset conform normal distribution. We'll use following criterias for each numeric data column:</p>
+<p>As a result of Video tag trimming we lose about 7% of the dataset - it's an acceptable loss.</p>
+<p>Let's check if numeric data in the dataset conform to normal distribution. We'll use the following criteria for each numeric data column:</p>
 <ol>
 <li>D'Agostino criteria;</li>
 <li>Jarque-Bera criteria;</li>
@@ -14543,8 +14542,8 @@ Wilcoxon hypothesis for viewCount approved
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As we mignt see all numeric data in dataset conforms normal distribution law.</p>
-<p>Now we need to classify text data. Using K-means's intertia parameter determine optimal clusters quantity for Titles and Viedeo tags. Then using TF IDF sepatare Titles and Video tags to determined number of clusters and replace label with mean View count by cluster.</p>
+<p>As we might see all numeric data in the dataset conforms to normal distribution law.</p>
+<p>Now we need to classify text data. Using K-means's intertia parameter determine optimal cluster quantity for Titles and Viedeo tags. Then TF IDF separates Titles and Video tags to determine number of clusters and replaces label with mean View count by cluster.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14978,8 +14977,8 @@ max       1.000000       0.609804      0.597082
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Video duration have no correlation to any parameter at all, so it might be excluded from model.
-Hight correlation to View count have following parameters:</p>
+<p>Video duration has no correlation to any parameter at all, so it might be excluded from the model.
+High correlation to View count has the following parameters:</p>
 <ol>
 <li>Likes count;</li>
 <li>Dislikes count;</li>
@@ -14987,7 +14986,7 @@ Hight correlation to View count have following parameters:</p>
 <li>Channel subscribers count.</li>
 </ol>
 <p>But Dislikes count and Comments count correlate to Likes count also. 
-Take as base parameter Likes count calculate Dislikes count and Comments count using Linear regression. Then use only residual of values in model.</p>
+Take as base parameter Likes count calculate Dislikes count and Comments count using Linear regression. Then use only the residual values in the model.</p>
 <p>Do the same with Channel subscribers count and Channel view count.</p>
 
 </div>
@@ -15460,8 +15459,8 @@ After:  -0.0
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As far as we get rid of correlation we're ready to build first model for prediction. Build few models to compare it's results. As criteria take RMSE.</p>
-<p>For the first step we'll build naive NN: two layers contains one neuron each. Just for fun :)
+<p>As far as we get rid of correlation we're ready to build the first model for prediction. Build a few models to compare its results. As criteria take RMSE.</p>
+<p>For the first step, we'll build naive NN: two layers contain one neuron each. Just for fun :)
 Model's hyperparameters obtained experimentally.</p>
 
 </div>
@@ -15799,8 +15798,8 @@ Model's hyperparameters obtained experimentally.</p>
 <li>Bagging - 1.960217e-01;</li>
 <li>Random Forest - 1.970156e-01.</li>
 </ol>
-<p>As we may see the naive NN have minimal RMSE value and suits best for prediction.</p>
-<p>Take as a base NN and try to tune it's hyperparameters automatically.</p>
+<p>As we may see the naive NN has minimal RMSE value and suits best for prediction.</p>
+<p>Take as a base NN and try to tune its hyperparameters automatically.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15932,13 +15931,13 @@ Model's hyperparameters obtained experimentally.</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Fond of correlation matrix - it shows that RMSE value depends mostly from First layer neurons quantity and Learning rate. It could be helpfull in case if we're aim to optimize model again.</p>
+<p>Fond of correlation matrix - it shows that RMSE value depends mostly on First layer neurons quantity and Learning rate. It could be helpful in case if we aim to optimize the model again.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Following hyperparameters have been obtainer after tuning:</p>
+<p>The following hyperparameters have been obtained after tuning:</p>
 <ol>
 <li>First layer neurons quantity - 50;</li>
 <li>First layer activation function - ReLU;</li>
@@ -15948,7 +15947,7 @@ Model's hyperparameters obtained experimentally.</p>
 <li>Dropout - 0.0;</li>
 <li>Learning rate - 0.05.</li>
 </ol>
-<p>I have a doubt about if it helps to obtain better prediction but still we'll try to rebuild model.</p>
+<p>I have a doubt about whether it helps to obtain better prediction but still, we'll try to rebuild the model.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16055,7 +16054,7 @@ Model's hyperparameters obtained experimentally.</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Well, we have some profit from tuning - RMSE value decreased. Coud it be any better? Run for 'round two' of tuning:</p>
+<p>Well, we have some profit from tuning - RMSE value decreased. Could it be any better? Run for 'round two' of tuning:</p>
 <ol>
 <li>Keep first layer activation function as ReLU;</li>
 <li>Keep second layer activation function as Sigmoid;</li>
@@ -16150,14 +16149,14 @@ Model's hyperparameters obtained experimentally.</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Following hyperparameters have been obtainer after tuning:</p>
+<p>The following hyperparameters have been obtained after tuning:</p>
 <ol>
 <li>First layer neurons quantity - 44;</li>
 <li>Batch size - 90;</li>
 <li>Number of epochs - 110;</li>
 <li>Learning rate - 0.04.</li>
 </ol>
-<p>Rebuild model again and evaluate RMSE value.</p>
+<p>Rebuild the model again and evaluate RMSE value.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16263,9 +16262,9 @@ Model's hyperparameters obtained experimentally.</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>So, two rounds of model tuning gave us RMSE decrease in 2 times: we start from 1.470309e-01 and ends at 7.101331e-02.</p>
-<p>Use optimized model for View count prediction.
-For example we have youtube channel with cats videos. We post new one and ask sucscribers about 10000 likes :) For example take:</p>
+<p>So, two rounds of model tuning gave us RMSE decrease 2 times: we started from 1.470309e-01 and ended at 7.101331e-02.</p>
+<p>Use an optimized model for View count prediction.
+For example, we have a YouTube channel with cat videos. We post new ones and ask subscribers about 10000 likes :) For example, take:</p>
 <ol>
 <li>Likes count - 8675 / 1202126 = 0.00721638;</li>
 <li>Diskiles count - 547 / 88114 = 0.00620787;</li>
@@ -16360,9 +16359,9 @@ For example we have youtube channel with cats videos. We post new one and ask su
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We obtain predicted value of View count equals to 1390000 approximatelly.</p>
-<p>In 2013 Youtube's average Cost per thousand (CPE) was about <span>$</span>7.6. Assume that average CPE decreased to <span>$</span>5.0 now. So at the end we could earn up to $6950 on the pussy cats video.</p>
-<p>Results makes me feel like I had to quit machine learning and start own Youtube channel :)</p>
+<p>We obtain the predicted value of View count equal to 1390000 approximately.</p>
+<p>In 2013 YouTube's average Cost per thousand (CPE) was about <span>$</span>7.6. Assume that average CPE decreased to <span>$</span>5.0 now. So in the end we could earn up to $6950 on the pussy cats video.</p>
+<p>The results make me feel like I had to quit machine learning and start my own YouTube channel :)</p>
 
 </div>
 </div>
